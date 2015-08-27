@@ -38,7 +38,7 @@ function currentSpot() {
         }
     }
 }
-
+//100003553
 function ywActiveMenu(currentSpot) {
     return function(scope, element, attrs) {
         var activeMenuId = attrs["ywActiveMenu"];
@@ -48,6 +48,8 @@ function ywActiveMenu(currentSpot) {
 }
 
 function ywMenuId(currentSpot) {
+    var menuElements = [];
+
     function setActive(element, menuId) {
         if(currentSpot.getActiveMenu() == menuId) {
             element.addClass('active');
@@ -58,7 +60,18 @@ function ywMenuId(currentSpot) {
 
     return function(scope, element, attrs) {
         var menuId = attrs["ywMenuId"];
-        setActive(element, menuId);
+        menuElements.push({id: menuId, node: element});
+
+        var watcherFn = function(watchScope) {
+            return watchScope.$eval('getActiveMenu()');
+        }
+        
+        scope.$watch(watcherFn, function (newValue, oldValue) {
+            for(var i = 0; i < menuElements.length; i++) {
+                var menuElement = menuElements[i];
+                setActive(menuElement.node, menuElement.id);
+            }
+        });
     }
 }
 
