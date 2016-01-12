@@ -1,0 +1,23 @@
+<html ng-app="yw.planning">
+<head>
+    <title>Dive Buddy</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/site.css">
+</head>
+<body style="margin-top: 24px;">
+    <div class="container-fluid" ng-controller="planCtrl">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="maxDepth">Planned Depth (feet)</label>
+                    <input id="maxDepth" class="form-control" type="number" ng-model="maxDepth" />
+                    <p style="margin-top: 12px" ng-class="{'text-danger': needAdvancedCert()}">
+                        {{message()}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    <script src="../js/angular.min.js"></script>
+    <script src="depth.js"></script>
+</body>
+</html>
