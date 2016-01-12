@@ -2,7 +2,7 @@ angular.module('maintenance', ['ngRoute'])
     .controller('adminCtrl', AdminCtrl)
     .controller('mainCtrl', MainCtrl)
     .controller('locationsCtrl', LocationsCtrl)
-    .controller('divesCtrl', DivesCtrl)
+    .controller('sitesCtrl', SitesCtrl)
     .factory('currentSpot', currentSpot)
     .directive('ywActiveMenu', ywActiveMenu)
     .directive('ywMenuId', ywMenuId)
@@ -11,9 +11,9 @@ angular.module('maintenance', ['ngRoute'])
             templateUrl: 'views/locations.html',
             controller: 'locationsCtrl'
         });
-        $routeProvider.when('/dives', {
+        $routeProvider.when('/sites', {
             templateUrl: 'views/sites.html',
-            controller: 'divesCtrl'
+            controller: 'sitesCtrl'
         });
         $routeProvider.otherwise({
             templateUrl: 'views/main.html',
@@ -38,7 +38,7 @@ function currentSpot() {
         }
     }
 }
-//100003553
+
 function ywActiveMenu(currentSpot) {
     return function(scope, element, attrs) {
         var activeMenuId = attrs["ywActiveMenu"];
@@ -78,6 +78,7 @@ function ywMenuId(currentSpot) {
 function AdminCtrl($scope, currentSpot) {
     $scope.isActive = isActive;
     $scope.getTitle = getTitle;
+    $scope.getActiveMenu = getActiveMenu;
 
     function isActive(menuId) {
         return currentSpot.getActiveMenu() == menuId;
@@ -85,6 +86,10 @@ function AdminCtrl($scope, currentSpot) {
 
     function getTitle() {
         return currentSpot.getTitle();
+    }
+
+    function getActiveMenu() {
+        return currentSpot.getActiveMenu();
     }
 }
 
@@ -96,6 +101,6 @@ function LocationsCtrl(currentSpot) {
 
 }
 
-function DivesCtrl(currentSpot) {
+function SitesCtrl(currentSpot) {
 
 }
